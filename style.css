@@ -50,3 +50,20 @@ a{
 p{
     font-size: small;
 }
+
+
+#cart-icon {
+    position: relative; /* Ensure the icon container is positioned relative */
+}
+
+#cart-icon .cart-count {
+    position: absolute; 
+    top: -10px; /* Adjust the vertical position (move it up) */
+    right: -10px; /* Adjust the horizontal position (move it to the right) */
+    background-color: rgb(17, 17, 17); /* Set the background color to red */
+    color: white; /* Set the text color to white for better contrast */
+    border-radius: 40%; /* Make the count circular */
+    padding: 2px 6px; /* Add padding for better spacing */
+    font-size: 8px; /* Adjust the font size */
+    font-weight: bold; /* Make the text bold */
+}

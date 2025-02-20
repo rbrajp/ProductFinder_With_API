@@ -69,7 +69,7 @@
 let cardContainer = document.getElementById("cardContainer");
 let url = "https://fakestoreapi.com/products";
 let productdata = [];
-
+let cartItems = []; // To store items added to the cart
 
 function generateHTML(data) {
     let ihtml = "";
@@ -85,8 +85,9 @@ function generateHTML(data) {
                     <p class="card-text mb-1"><strong>Description:</strong> ${item.description}</p>
                     <p class="card-text mt-1"><strong>Price:</strong> ${item.price}</p>
                 </div>
-                <div>
-                    <a href="${item.url}" class="btn btn-primary">Add to Cart</a>
+               
+                 <div>
+                    <button onclick="addToCart(${item.id})" class="btn btn-primary">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -129,3 +130,31 @@ async function searchValue() {
         console.log("Product data is not yet available.");
     }
 }
+
+//for Cart-icon funtionality
+
+// Function to add an item to the cart
+function addToCart(productId) {
+    // Find the product in the productdata array
+    let product = productdata.find((item) => item.id === productId);
+    if (product) {
+        // Add the product to the cart
+        cartItems.push(product);
+        // Update the cart icon
+        updateCartIcon();
+        console.log("Added to cart:", product.title);
+    }
+}
+
+// Function to update the cart icon
+function updateCartIcon() {
+    let cartIcon = document.getElementById("cart-icon");
+    // Display the number of items in the cart
+    cartIcon.innerHTML = `<a href="#"><i class="fa-solid fa-cart-shopping"></i> <span class="cart-count">${cartItems.length}</span></a>`;
+}
+
+
+
+
+
+
