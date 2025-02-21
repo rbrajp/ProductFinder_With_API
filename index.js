@@ -82,7 +82,7 @@ function generateHTML(data) {
             <div class="card-body d-flex flex-column justify-content-between">
                 <div>
                     <p class="card-title"><strong>Item Name:</strong> ${item.title}</p>
-                    <p class="card-text mb-1"><strong>Description:</strong> ${item.description}</p>
+                    <p class="card-text">${truncateText(item.description, 50)}</p>
                     <p class="card-text mt-1"><strong>Price:$</strong> ${item.price}</p>
                 </div>
                
@@ -95,6 +95,14 @@ function generateHTML(data) {
     }
     return ihtml;
 }
+
+//for description trim
+function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    } 
+     return text;
+    }
 
 // Fetch data from the API
 fetch(url)
