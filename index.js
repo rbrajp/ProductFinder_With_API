@@ -134,25 +134,54 @@ async function searchValue() {
 //for Cart-icon funtionality
 
 // Function to add an item to the cart
+// function addToCart(productId) {
+//     // Find the product in the productdata array
+//     let product = productdata.find((item) => item.id === productId);
+//     console.log("hhh", product)
+//     const productStr = JSON.stringify(product);//
+//     localStorage.setItem(productId, productStr)//
+//     if (product) {
+//         // Add the product to the cart
+//         cartItems.push(product);
+//         // Update the cart icon
+//         updateCartIcon();
+//         console.log("Added to cart:", product.title);
+//     }
+// }
+
+
 function addToCart(productId) {
-    // Find the product in the productdata array
     let product = productdata.find((item) => item.id === productId);
+
     if (product) {
-        // Add the product to the cart
-        cartItems.push(product);
-        // Update the cart icon
+        const productStr = JSON.stringify(product);
+        localStorage.setItem(productId, productStr);
         updateCartIcon();
         console.log("Added to cart:", product.title);
     }
 }
 
-// Function to update the cart icon
+
+
+// function updateCartIcon() {
+//     let cartCount = Object.keys(localStorage).length; // Count items in localStorage
+//     let cartIcon = document.getElementById("cart-icon");
+//     cartIcon.innerHTML = `<a href="Cart.html"><i class="fa-solid fa-cart-shopping"></i> <span class="cart-count">${cartCount}</span></a>`;
+// }
+
+// window.onload = updateCartIcon;
+
+
+//Function to update the cart icon
 function updateCartIcon() {
+    let cartCount = Object.keys(localStorage).length; // Count items in localStorage
     let cartIcon = document.getElementById("cart-icon");
     // Display the number of items in the cart
-    cartIcon.innerHTML = `<a href="#"><i class="fa-solid fa-cart-shopping"></i> <span class="cart-count">${cartItems.length}</span></a>`;
+    cartIcon.innerHTML = `<a href="Cart.html"><i class="fa-solid fa-cart-shopping"></i> <span class="cart-count">${cartCount}</span></a>`;
 }
 
+
+window.onload = updateCartIcon;
 
 
 
