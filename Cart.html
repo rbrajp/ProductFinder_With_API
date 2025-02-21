@@ -25,9 +25,19 @@
     </header>
 
     <div class="container-fluid pt-5 mt-5">
-        <h3 class="text-center">Your Cart Items</h3>
-        <div id="cartContainer" class="row justify-content-around pb-2">
-            <!-- Cart items will be dynamically inserted here -->
+        
+        <div  class="row justify-content-around pb-2">
+            <div  class="col-6 col-md">
+                <div class="text-center"><h3>Your Cart Items</h3></div>
+                <div id="cartContainer" class="row bg-body-secondary justify-content-around pt-2 ms-2">
+                     <!-- Cart items will be dynamically inserted here -->
+                </div>
+            </div>
+            <div  class="col-6 col-md">
+                <div class="row bg-body-danger">
+                     <!-- Cart items will be dynamically inserted here -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -47,23 +57,44 @@
 
                 if (product) {
                     let itemHTML = `
-                        <div class="card shadow-box mb-2" style="width: 18rem;">
-                            <div class="border-1 mt-2" style="height: 120px">
-                                <img src="${product.image}" class="card-img-top" alt="..." style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                            </div>
+                        <div class="card container-fluid shadow-box mb-2 position: relative;" >
+                             <div  class="row pb-2">
+
+                                <div  class="col-md-3">
+                                    <div class="border-1 mt-2" style="height: 120px">
+                                      <img src="${product.image}" class="card-img-top" alt="..." style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                           
+                           <div  class="col-md-9">
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div>
                                     <p class="card-title"><strong>Item Name:</strong> ${product.title}</p>
-                                    <p class="card-text"><strong>Price:</strong> $${product.price}</p>
+                                    <p class="card-text"><strong>Price:</strong> ${product.price}</p>
+                                    <p class="card-text"><strong>Description:</strong> ${truncateText(product.description, 50)}</p>
                                 </div>
-                                <button onclick="removeFromCart('${itemId}')" class="btn btn-danger mt-4 p-0">Remove</button>
+                                   
+                                    <button onclick="removeFromCart('${itemId}')" class="btn" style="position: absolute; top: -18px; right: -15px;">
+                                        <i class="fa-solid fa-xmark"></i></button>
+                                 
                             </div>
-                        </div>
+                           </div>                
+                  </div>
+              </div>
                     `;
                     cartContainer.innerHTML += itemHTML;
                 }
             });
         }
+
+        //for description trim
+        function truncateText(text, maxLength) {
+            if (text.length > maxLength) {
+              return text.substring(0, maxLength) + '...';
+            } 
+             return text;
+            }
 
         function removeFromCart(itemId) {
             localStorage.removeItem(itemId);
