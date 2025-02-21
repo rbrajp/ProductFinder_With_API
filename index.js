@@ -83,7 +83,7 @@ function generateHTML(data) {
                 <div>
                     <p class="card-title"><strong>Item Name:</strong> ${item.title}</p>
                     <p class="card-text mb-1"><strong>Description:</strong> ${item.description}</p>
-                    <p class="card-text mt-1"><strong>Price:</strong> ${item.price}</p>
+                    <p class="card-text mt-1"><strong>Price:$</strong> ${item.price}</p>
                 </div>
                
                  <div>
