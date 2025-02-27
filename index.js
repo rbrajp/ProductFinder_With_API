@@ -65,13 +65,16 @@
 
 
 
-//appoarch-2
-let cardContainer = document.getElementById("cardContainer");
+
+
+let cardContainer = document.getElementById("cardContainer");//appoarch-2
 let url = "https://fakestoreapi.com/products";
 let productdata = [];
 let cartItems = []; // To store items added to the cart
 
 function generateHTML(data) {
+    let itemsFC = Object.keys(localStorage);
+    console.log("stored item", itemsFC)
     let ihtml = "";
     for (let item of data) {
         ihtml += `
@@ -85,10 +88,18 @@ function generateHTML(data) {
                     <p class="card-text">${truncateText(item.description, 100)}</p>
                     <p class="card-text mt-1"><strong>Price:$</strong> ${item.price}</p>
                 </div>
-               
-                 <div>
-                    <button onclick="addToCart(${item.id})" class="btn btn-primary">Add to Cart</button>
-                </div>
+            
+                 
+                 ${itemsFC.includes(String(item.id)) ? `
+                    <div>
+                        <button onclick="goToCart(${item.id})" class="btn btn-success">Go to Cart</button>
+                    </div>
+                ` : `
+                    <div>
+                        <button onclick="addToCart(${item.id})" class="btn btn-primary">Add to Cart</button>
+                    </div>
+                `}
+                
             </div>
         </div>
         `;
@@ -166,10 +177,20 @@ function addToCart(productId) {
         const productStr = JSON.stringify(product);
         localStorage.setItem(productId, productStr);
         updateCartIcon();
+  
+          // Change button immediately to "Go to Cart"
+        let button = document.querySelector(`button[onclick="addToCart(${productId})"]`);
+        if (button) {
+            button.outerHTML = `<button onclick="goToCart(${productId})" class="btn btn-success">Go to Cart</button>`;
+        }
+
         console.log("Added to cart:", product.title);
     }
 }
 
+function goToCart() {
+    window.location.href = "Cart.html"; // Redirect to cart page
+}
 
 
 // function updateCartIcon() {
@@ -182,6 +203,7 @@ function addToCart(productId) {
 
 
 //Function to update the cart icon
+
 function updateCartIcon() {
     let cartCount = Object.keys(localStorage).length; // Count items in localStorage
     let cartIcon = document.getElementById("cart-icon");
